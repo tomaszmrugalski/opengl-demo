@@ -66,6 +66,7 @@ public class WorldMain implements GLEventListener
     protected int screenWidthUniformHandle, screenHeightUniformHandle; // adresy zmiennych w shaderach
         
     protected float angle = 0.0f;
+    boolean copernicus = false;
 
     @Override
     public void init(GLAutoDrawable drawable) // inicjalizacja sceny
@@ -250,6 +251,8 @@ public class WorldMain implements GLEventListener
 
     // Ten kawalek kodu przesuwa swiatlo, wokol srodka "ziemi" (x,z)=(0,-500)
     void moveLight() {
+        if (copernicus)
+            return;
         angle += 0.04;
         float radius = 500.0f;
         float center_x = 0.0f;
@@ -538,6 +541,11 @@ public class WorldMain implements GLEventListener
             if (kc == KeyEvent.VK_N)
             {
                 Weather.changeWindSpeed(0, -1, 0);
+            }
+            
+            if (kc == KeyEvent.VK_L)
+            {
+                copernicus = !copernicus;
             }
         }
 
