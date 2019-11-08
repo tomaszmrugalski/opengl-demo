@@ -64,7 +64,9 @@ public class WorldMain implements GLEventListener
     protected boolean postProcessingActive=false;
     protected boolean postProcessingPrepared=false;
     protected int screenWidthUniformHandle, screenHeightUniformHandle; // adresy zmiennych w shaderach
-    
+        
+    protected float angle = 0.0f;
+
     @Override
     public void init(GLAutoDrawable drawable) // inicjalizacja sceny
     {
@@ -246,6 +248,15 @@ public class WorldMain implements GLEventListener
         }
     }
 
+    // Ten kawalek kodu przesuwa swiatlo, wokol srodka "ziemi" (x,z)=(0,-500)
+    void moveLight() {
+        angle += 0.04;
+        float radius = 500.0f;
+        float center_x = 0.0f;
+        float center_z = -500.0f;
+        light.setPosition( center_x + (float)(Math.sin(angle)*radius), 0.0f, center_z + (float)(Math.cos(angle)*radius));
+    }
+    
     @Override
     public void display(GLAutoDrawable drawable) // metoda renderująca aktualną klatkę
                                                                                                                                                                                                                                                                 {
@@ -267,6 +278,8 @@ public class WorldMain implements GLEventListener
         // Zaktualizowanie kamery.
         gl.glLoadIdentity();
         updateCamera(gl, screenWidth, screenHeight);
+        
+        moveLight();
         
         // Rysowanie obiektów,
         for (GameObject object : objects)
