@@ -88,7 +88,32 @@ public class House extends GameObject
         // -------------------------------------------------------
         // TUTAJ ZMIEŃ KOLOR RYSOWANIA I ZDEFINIUJ KSZTAŁT KOMINA
         // -------------------------------------------------------
+        gl.glColor3f(0f, 1.0f, 0f);
+   
+        float h = 400.0f;
+        float x = 50.0f;
+        float y = 50.0f;
         
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, 0.0f,    50.0f);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, 0.0f,   -50.0f);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, h, -50.0f);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, h,  50.0f);
+
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(250.0f,  0.0f,   -50.0f);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(150.0f, 0.0f,   -50.0f);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(150.0f, h, -50.0f);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(250.0f,  h, -50.0f);
+
+        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(250.0f,  0.0f,   50.0f);
+        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(150.0f, 0.0f,   50.0f);
+        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(150.0f, h, 50.0f);
+        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(250.0f,  h, 50.0f);
+
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, 0.0f,    50.0f);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, 0.0f,   -50.0f);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, h, -50.0f);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, h,  50.0f);
+
         
         gl.glEnd(); // koniec definiowania powierzchni
         
