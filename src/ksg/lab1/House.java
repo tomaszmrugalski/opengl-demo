@@ -25,7 +25,10 @@ public class House extends GameObject
     {
         gl.glPushMatrix(); // odłożenie aktualnego stanu macierzy transformacji na stos
         gl.glTranslatef(position.x, position.y, position.z); // ustawienie pozycji
-        gl.glRotatef(40, 0,1,0);
+        
+        
+        // Zad 
+        gl.glRotatef(0, 0,1,0); // byl obrocony o 40 stopni, obracam o 0
         
         gl.glPushAttrib(GL2.GL_ALL_ATTRIB_BITS); // odłożenie aktualnego stanu atrybutów na stos
         gl.glEnable(GL2.GL_COLOR_MATERIAL); // wykorzystanie kolorów wierzchołków zamiast domyślnego materiału

@@ -15,7 +15,7 @@ public class Light extends GameObject
     protected TexturedQuad mesh=null;
     protected Colour diffuseColour;
     protected Colour specularColour;
-    
+        
     public Light()
     {
         super();
@@ -30,6 +30,9 @@ public class Light extends GameObject
     @Override
     public void update(GL2 gl)
     {
+        
+        
+        //move(0.0f, -0.1f, 0.0f);
         // Aktualizacja parametrów oświetlenia sceny.
         gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, position.toFloatArray(), 0);
         gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, diffuseColour.toFloatArray(), 0);

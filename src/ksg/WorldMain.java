@@ -39,6 +39,7 @@ import ksg.lab1.GroundVbo;
 import ksg.lab1.House;
 import ksg.lab1.Light;
 import ksg.lab3.TexturedQuad;
+import java.util.Random;
 
 /**
  @author MK
@@ -258,6 +259,22 @@ public class WorldMain implements GLEventListener
         float center_x = 0.0f;
         float center_z = -500.0f;
         light.setPosition( center_x + (float)(Math.sin(angle)*radius), 0.0f, center_z + (float)(Math.cos(angle)*radius));
+    }
+    
+    float getRandom() {
+        Random r = new Random();
+        return r.nextInt(1000)/500.0f;
+    }
+    
+    void setRandomLightColor() {
+        light.setDiffuseColour(new Colour(getRandom(), getRandom(), getRandom(), getRandom()) );
+        light.setSpecularColour(new Colour(getRandom(), getRandom(), getRandom(), getRandom()) );
+        
+    }
+    
+    void resetLightColor() {
+        light.setDiffuseColour(new Colour(1.7f, 1.7f, 1.7f, 1.0f) );
+        light.setSpecularColour(new Colour(1.0f, 1.0f, 1.0f, 1.0f) );
     }
     
     @Override
@@ -546,6 +563,14 @@ public class WorldMain implements GLEventListener
             if (kc == KeyEvent.VK_L)
             {
                 copernicus = !copernicus;
+            }
+            if (kc == KeyEvent.VK_N)
+            {
+                setRandomLightColor();
+            }
+            if (kc == KeyEvent.VK_M)
+            {
+                resetLightColor();
             }
         }
 
