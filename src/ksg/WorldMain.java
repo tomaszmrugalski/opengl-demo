@@ -254,11 +254,17 @@ public class WorldMain implements GLEventListener
     void moveLight() {
         if (copernicus)
             return;
+
+        // Oryginalne wspolrzedne
+        //light.setPosition(80.0f, 100.0f, 120.0f);
+
         angle += 0.04;
         float radius = 500.0f;
-        float center_x = 0.0f;
-        float center_z = -500.0f;
-        light.setPosition( center_x + (float)(Math.sin(angle)*radius), 0.0f, center_z + (float)(Math.cos(angle)*radius));
+        float center_x = 80.0f;
+        float center_y = 100.0f;
+        float center_z = 120.0f;
+
+        light.setPosition( center_x + (float)(Math.sin(angle)*radius), center_y, center_z + (float)(Math.cos(angle)*radius));
     }
     
     float getRandom() {
