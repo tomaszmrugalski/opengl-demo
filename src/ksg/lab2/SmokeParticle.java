@@ -8,7 +8,7 @@ import ksg.common.Vector3;
 import ksg.common.GameObject;
 
 /**
- @author MK
+ @author MK, changes TM
  */
 
 // Klasa reprezentująca pojedynczą cząsteczkę dymu.
@@ -21,17 +21,34 @@ public class SmokeParticle extends GameObject
     protected float energy=1.0f; // malejąca energia cząsteczki
     protected float fadeOutSpeed=0.004f, fadeInSpeed=0.04f; // prędkość pojawiania się i znikania cząstaczki
     protected boolean isFadingAway; // informacja, czy cząsteczka już znika, czy dopiero się pojawia
-    
+
+    static final protected float delta = 0.5f;
+
+    static Random rand;
+
     public SmokeParticle(Vector3 position, Texture texture, Colour colour)
     {
         super();
+
+        if (rand == null) {
+            rand = new Random();
+        }
         setPosition(position);
         this.texture = texture;
         setColour( new Colour(colour) );
-        moveSpeed = new Vector3(0.f, 1.5f, 0.f);
+
         isFadingAway = false;
     }
     
+    public void reset() {
+
+        // TASK 2.1b: particles should slowly drift sideways when moving up (using random x,z components for that)
+        float delta_x = rand.nextFloat()*delta - delta/2;
+        float delta_y = 1.5f; // moving upwards at constant speed
+        float delta_z = rand.nextFloat()*delta - delta/2;
+        moveSpeed = new Vector3(delta_x, delta_y, delta_z);
+    }
+
     public SmokeParticle(Vector3 position, Texture texture)
     {
         this(position, texture, new Colour(1,1,1,1));
@@ -50,7 +67,8 @@ public class SmokeParticle extends GameObject
     @Override
     public void update(GL2 gl) // aktualizacja niektórych parametrów cząsteczki
     {
-        gl.glColor4f(colour.red, colour.green, colour.blue, colour.alpha); // ustawienie odpowiedniego koloru
+        // TASK 2.1a - slow disappearance (we're using energy as alpha)
+        gl.glColor4f(colour.red, colour.green, colour.blue, energy); // ustawienie odpowiedniego koloru
         
         if (!isFadingAway)
         {
@@ -66,7 +84,9 @@ public class SmokeParticle extends GameObject
             energy -= fadeOutSpeed;
         }
         
-        colour.alpha = 0.4f;
+        // TASK 2.2c: Add irregularity to the movement
+        moveSpeed.x += (rand.nextFloat() - 0.5f)*0.1;
+        moveSpeed.z += (rand.nextFloat() - 0.5f)*0.1;
         move(moveSpeed);
     }
     

@@ -47,7 +47,7 @@ import ksg.common.Vector3;
 import java.util.Random;
 
 /**
- * @author MK
+ * @author MK, changes TM
  */
 public class WorldMain implements GLEventListener {
 

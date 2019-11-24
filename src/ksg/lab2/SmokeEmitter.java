@@ -64,6 +64,7 @@ public class SmokeEmitter extends GameObject
     {
         particle.energy = rand.nextFloat();
         particle.isFadingAway = rand.nextBoolean();
+        particle.reset();
     }
     
     // Zmiana trybu rysowania.
