@@ -57,7 +57,7 @@ public class GroundVbo extends GameObject
         int imgWidth  = displacementMap.getWidth();
         int imgHeight = displacementMap.getHeight();
 
-        int maxElev = 50;
+        int maxElev = 80;
 
         float[] vertexArray = new float[cols*rows*3];
         for (int y=0; y<rows; y++) {
