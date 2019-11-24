@@ -91,31 +91,44 @@ public class House extends GameObject
         // -------------------------------------------------------
         // TUTAJ ZMIEŃ KOLOR RYSOWANIA I ZDEFINIUJ KSZTAŁT KOMINA
         // -------------------------------------------------------
-        gl.glColor3f(0f, 1.0f, 0f);
    
-        float h = 400.0f;
-        float x = 50.0f;
-        float y = 50.0f;
-        
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, 0.0f,    50.0f);
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, 0.0f,   -50.0f);
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, h, -50.0f);
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(250.0f, h,  50.0f);
+        // Chimney center
+        float cx = 150.0f; // 150 - inside, 175 - touching house, 200 - standing next to
+        float cy = 0.0f;
+        float cz = 0.0f;
 
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(250.0f,  0.0f,   -50.0f);
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(150.0f, 0.0f,   -50.0f);
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(150.0f, h, -50.0f);
-        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(250.0f,  h, -50.0f);
+        float x = 25.0f;
+        float y = 400.0f;
+        float z = 40.0f;
 
-        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(250.0f,  0.0f,   50.0f);
-        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(150.0f, 0.0f,   50.0f);
-        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(150.0f, h, 50.0f);
-        gl.glNormal3f(0.0f, 0.0f, -1.0f);   gl.glVertex3f(250.0f,  h, 50.0f);
+        // chimney wall 1 (away from the house)
+        gl.glColor3f(0.3f, 0.3f, 0.3f);
+        gl.glNormal3f(1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx + x, cy,     cz + z);
+        gl.glNormal3f(1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx + x, cy,     cz - z);
+        gl.glNormal3f(1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx + x, cy + y, cz - z);
+        gl.glNormal3f(1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx + x, cy + y, cz + z);
 
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, 0.0f,    50.0f);
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, 0.0f,   -50.0f);
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, h, -50.0f);
-        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(150.0f, h,  50.0f);
+        // chimney wall 2
+        gl.glColor3f(0.3f, 0.3f, 0.3f);
+        gl.glNormal3f(0.0f, 0f, -1.0f);   gl.glVertex3f(cx + x, cy,     cz - z);
+        gl.glNormal3f(0.0f, 0f, -1.0f);   gl.glVertex3f(cx - x, cy,     cz - z);
+        gl.glNormal3f(0.0f, 0f, -1.0f);   gl.glVertex3f(cx - x, cy + y, cz - z);
+        gl.glNormal3f(0.0f, 0f, -1.0f);   gl.glVertex3f(cx + x, cy + y, cz - z);
+
+        // chimney wall 3
+        gl.glColor3f(0.3f, 0.3f, 0.3f);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(cx + x, cy,     cz + z);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(cx - x, cy,     cz + z);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(cx - x, cy + y, cz + z);
+        gl.glNormal3f(0.0f, 0.0f, 1.0f);   gl.glVertex3f(cx + x, cy + y, cz + z);
+
+        gl.glColor3f(0.3f, 0.3f, 0.3f);
+
+        // chimney wall 4 (facing house)
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx - x, cy,     cz + z);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx - x, cy,     cz - z);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx - x, cy + y, cz - z);
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);   gl.glVertex3f(cx - x, cy + y, cz + z);
 
         
         gl.glEnd(); // koniec definiowania powierzchni
