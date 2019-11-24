@@ -3,3 +3,5 @@ build
 *.log
 lib/*.jar
 .DS_Store
+jogamp-all-platforms
+
