@@ -4,4 +4,7 @@ build
 lib/*.jar
 .DS_Store
 jogamp-all-platforms
+*.zip
+*.7z
+
 
