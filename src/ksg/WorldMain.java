@@ -622,7 +622,7 @@ public class WorldMain implements GLEventListener {
 
             if (kc == KeyEvent.VK_P) {
                 postProcessingActive = !postProcessingActive;
-                System.out.printf("Postprocessing is %s", (postProcessingActive ? "TRUE" : "FALSE"));
+                System.out.printf("Postprocessing is %s\n", (postProcessingActive ? "TRUE" : "FALSE"));
             }
         }
 
