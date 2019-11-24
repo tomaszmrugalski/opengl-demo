@@ -204,6 +204,11 @@ public class WorldMain implements GLEventListener {
     {
         // Stworzenie obiektu reprezentującego światło i dodanie go do kolekcji obiektów.
         light = new Light(new TexturedQuad(0, 0, 0, textures.get(0)));
+
+        light.getMesh().createShaders(gl,
+            "/ksg/lab3/shaders/QuadVertex.glsl",
+            "/ksg/lab3/shaders/QuadFragment.glsl");
+
         objects.add(light);
         light.setPosition(80.0f, 100.0f, 120.0f);
         light.setDiffuseColour(new Colour(1.7f, 1.7f, 1.7f, 1.0f));
@@ -404,7 +409,7 @@ public class WorldMain implements GLEventListener {
 
         // TASK 2.5: Make the smoke movement speed independent of the number of particles
         currentTime = System.nanoTime();
-        double scaler = (currentTime - previousTime)*0.00000006;
+        double scaler = (currentTime - previousTime) * 0.00000006;
         previousTime = currentTime;
 
         statsPrint++;
