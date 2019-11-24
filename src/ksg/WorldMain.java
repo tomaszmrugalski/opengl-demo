@@ -71,6 +71,9 @@ public class WorldMain implements GLEventListener {
     protected boolean postProcessingPrepared = false;
     protected int screenWidthUniformHandle, screenHeightUniformHandle; // adresy zmiennych w shaderach
 
+    protected int phaseHandle; // handle for phase variable in ScreenFragment.glsl
+    public float phase = 0.0f;
+
     protected float angle = 26.7f; // in radians, chosen experimentally to give a good lighting
     boolean copernicus = true; // true - the sun doesn't move
 
@@ -376,10 +379,15 @@ public class WorldMain implements GLEventListener {
             // Pobranie adresów zmiennych w shaderach.
             screenWidthUniformHandle = gl.glGetUniformLocation(postProcessingShaders.getShaderProgram(), "screenWidth");
             screenHeightUniformHandle = gl.glGetUniformLocation(postProcessingShaders.getShaderProgram(), "screenHeight");
+            phaseHandle = gl.glGetUniformLocation(postProcessingShaders.getShaderProgram(), "phase");
 
             // Przekazanie wartości zmiennych do shaderów.
             gl.glUniform1f(screenWidthUniformHandle, (float) screenWidth);
             gl.glUniform1f(screenHeightUniformHandle, (float) screenHeight);
+
+            // TASK 3.3: Make the heat wave. This passes the current value of a phase.
+            phase += 0.1;
+            gl.glUniform1f(phaseHandle, (float) phase);
 
             // Narysowanie prymitywnej ściany z użyciem tekstury zawierającej rezultat wyrenderowania sceny.
             gl.glBegin(GL2.GL_QUADS);
@@ -614,7 +622,7 @@ public class WorldMain implements GLEventListener {
 
             if (kc == KeyEvent.VK_P) {
                 postProcessingActive = !postProcessingActive;
-                System.out.printf("Postprocessing is %s", (postProcessingActive?"TRUE":"FALSE"));
+                System.out.printf("Postprocessing is %s", (postProcessingActive ? "TRUE" : "FALSE"));
             }
         }
 
