@@ -74,6 +74,9 @@ public class WorldMain implements GLEventListener {
     protected float angle = 26.7f; // in radians, chosen experimentally to give a good lighting
     boolean copernicus = true; // true - the sun doesn't move
 
+    int particlesCnt = 128;
+    int smokeIndex = -1;
+
     @Override
     public void init(GLAutoDrawable drawable) // inicjalizacja sceny
     {
@@ -113,7 +116,7 @@ public class WorldMain implements GLEventListener {
         // Dodanie obiektów przestrzennych do świata.
         addModels(gl);
 
-        addSmoke(gl);
+        initSmoke();
 
         // Jednorazowa konfiguracja oświetlenia.
         setupLight(gl);
@@ -173,13 +176,21 @@ public class WorldMain implements GLEventListener {
     }
 
     // TASK LAB2.1
-    protected void addSmoke(GL2 gl) {
+    public void initSmoke() {
 
         BufferedImage fire = readImage("resources/DefaultFire.png");
         BufferedImage part = readImage("resources/Particle.png");
 
         ksg.common.Vector3 pos = new ksg.common.Vector3(-100, 270, 650);
-        ksg.lab2.SmokeEmitter sm = new ksg.lab2.SmokeEmitter(pos, 10, 100, textures.get(2));
+        ksg.lab2.SmokeEmitter sm = new ksg.lab2.SmokeEmitter(pos, particlesCnt, textures.get(2));
+
+        // If this is the first time, we're adding smoke emitter, remember its index
+        if (smokeIndex != -1) {
+            objects.remove(smokeIndex);
+        } else {
+            // If this is not the first, time, remove the old one, and remember ths index of the new one
+            smokeIndex = objects.size();
+        }
 
         objects.add(sm);
     }
@@ -542,10 +553,24 @@ public class WorldMain implements GLEventListener {
                 Weather.changeWindSpeed(0, -1, 0);
             }
 
+            // TASK 2.4: Change the number of smoke particles.
+            if (kc == KeyEvent.VK_1) {
+                particlesCnt *= 2;
+                System.out.printf("Number of particles: %d\n", particlesCnt);
+                initSmoke();
+            }
+            // TASK 2.4: Change the number of smoke particles.
+            if (kc == KeyEvent.VK_2) {
+                if (particlesCnt > 10) {
+                    particlesCnt /= 2;
+                }
+                System.out.printf("Number of particles: %d\n", particlesCnt);
+                initSmoke();
+            }
             if (kc == KeyEvent.VK_L) {
-                // TASK 
+                // TASK 1.1: Make the light move around the scene after pressing L
                 copernicus = !copernicus;
-                System.out.printf("angle=%f", angle);
+                System.out.printf("Light position angle: %f\n", angle);
             }
             if (kc == KeyEvent.VK_N) {
                 // TASK 1.4: Change light color

@@ -23,10 +23,9 @@ public class SmokeEmitter extends GameObject
     protected float[] modelView; // macierz transformacji modelu
     protected FloatBuffer modelViewBuffer; // bufor przechowujący macierz modelu
     
-    public SmokeEmitter(Vector3 position, float radius, int numberOfParticles, Texture texture)
+    public SmokeEmitter(Vector3 position, int numberOfParticles, Texture texture)
     {
         this.position = position;
-        this.radius = radius;
         this.texture = texture;
         particles = new ArrayList<>();
         texturedMode = true;
@@ -164,9 +163,5 @@ public class SmokeEmitter extends GameObject
         }
     }
 
-    public float getRadius()
-    {
-        return radius;
-    }
     
 }
