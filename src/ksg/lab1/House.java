@@ -27,7 +27,7 @@ public class House extends GameObject
         gl.glTranslatef(position.x, position.y, position.z); // ustawienie pozycji
         
         
-        // Zad 
+        // TASK 1.3: Rotate house. It used to be rotated by 40 deg
         gl.glRotatef(0, 0,1,0); // byl obrocony o 40 stopni, obracam o 0
         
         gl.glPushAttrib(GL2.GL_ALL_ATTRIB_BITS); // odłożenie aktualnego stanu atrybutów na stos
@@ -92,6 +92,7 @@ public class House extends GameObject
         // TUTAJ ZMIEŃ KOLOR RYSOWANIA I ZDEFINIUJ KSZTAŁT KOMINA
         // -------------------------------------------------------
    
+        // TASK LAB1.2: Add chimney
         // Chimney center
         float cx = 150.0f; // 150 - inside, 175 - touching house, 200 - standing next to
         float cy = 0.0f;

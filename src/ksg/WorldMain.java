@@ -251,7 +251,7 @@ public class WorldMain implements GLEventListener
     }
 
     // Ten kawalek kodu przesuwa swiatlo, wokol srodka "ziemi" (x,z)=(0,-500)
-    // Task LAB1.1: Rotating right.
+    // TASK LAB1.1: Rotating right.
     void moveLight() {
 
         // This is a copernican model, the Sun doesn't move. ;)
@@ -584,10 +584,12 @@ public class WorldMain implements GLEventListener
             }
             if (kc == KeyEvent.VK_N)
             {
+                // TASK 1.4: Change light color
                 setRandomLightColor();
             }
             if (kc == KeyEvent.VK_M)
             {
+                // TASK 1.4: Change light color
                 resetLightColor();
             }
         }
