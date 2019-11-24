@@ -74,8 +74,13 @@ public class WorldMain implements GLEventListener {
     protected float angle = 26.7f; // in radians, chosen experimentally to give a good lighting
     boolean copernicus = true; // true - the sun doesn't move
 
+    // TASK 2.4: configurable number of particles
     int particlesCnt = 128;
     int smokeIndex = -1;
+
+    // TASK 2.5: printing time it took to draw one frame
+    int statsPrint = 0; // counter increasing from 0 to statsPrintEveryFrames
+    int statsPrintEveryFrames = 60; // Stats will be printed every X frames
 
     @Override
     public void init(GLAutoDrawable drawable) // inicjalizacja sceny
@@ -397,8 +402,18 @@ public class WorldMain implements GLEventListener {
             fps.draw();
         }
 
+        // TASK 2.5: Make the smoke movement speed independent of the number of particles
         currentTime = System.nanoTime();
+        double scaler = (currentTime - previousTime)*0.00000006;
         previousTime = currentTime;
+
+        statsPrint++;
+        if (statsPrint == 100) {
+            statsPrint = 0;
+            System.out.printf("Particles = %d, timeScaler=%f\n", particlesCnt, Global.timeScaler);
+        }
+
+        Global.timeScaler = scaler;
     }
 
     // Metoda wywoływana przy każdym przeskalowaniu okna.

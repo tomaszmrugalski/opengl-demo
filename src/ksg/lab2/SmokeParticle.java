@@ -73,7 +73,7 @@ public class SmokeParticle extends GameObject
         
         if (!isFadingAway)
         {
-            energy += fadeInSpeed;
+            energy += fadeInSpeed * Global.timeScaler;
             if (energy > 1f)
             {
                 energy = 1f;
@@ -82,7 +82,7 @@ public class SmokeParticle extends GameObject
         }
         else
         {
-            energy -= fadeOutSpeed;
+            energy -= fadeOutSpeed * Global.timeScaler;
         }
         
         // TASK 2.2c: Add irregularity to the movement
@@ -94,7 +94,14 @@ public class SmokeParticle extends GameObject
         moveSpeed.x += wind.x*0.01f;
         moveSpeed.y += wind.y*0.01f;
         moveSpeed.z += wind.z*0.01f;
-        move(moveSpeed);
+
+        // TASK 2.5: Make the smoke movement speed independent of the number of particles
+        Vector3 currentMovement = new Vector3(moveSpeed);
+        currentMovement.x *= Global.timeScaler;
+        currentMovement.y *= Global.timeScaler;
+        currentMovement.z *= Global.timeScaler;
+
+        move(currentMovement);
     }
     
 }
