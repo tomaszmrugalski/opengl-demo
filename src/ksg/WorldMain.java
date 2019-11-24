@@ -107,7 +107,9 @@ public class WorldMain implements GLEventListener
         
         // Dodanie obiektów przestrzennych do świata.
         addModels(gl);
-        
+
+        addSmoke(gl);
+
         // Jednorazowa konfiguracja oświetlenia.
         setupLight(gl);
         
@@ -171,6 +173,19 @@ public class WorldMain implements GLEventListener
             e.printStackTrace();
         }
     }
+
+    // TASK LAB2.1
+    protected void addSmoke(GL2 gl) {
+
+        BufferedImage fire = readImage("resources/DefaultFire.png");
+        BufferedImage part = readImage("resources/Particle.png");
+
+        ksg.common.Vector3 pos = new ksg.common.Vector3(-100, 270, 650);
+        ksg.lab2.SmokeEmitter sm = new ksg.lab2.SmokeEmitter(pos, 10, 100, textures.get(2));
+
+        objects.add(sm);
+    }
+
     
     protected void setupLight(GL2 gl) // konfiguracja oświetlenia
     {

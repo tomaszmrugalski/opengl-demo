@@ -98,7 +98,7 @@ public class House extends GameObject
         float cy = 0.0f;
         float cz = 0.0f;
 
-        float x = 25.0f;
+        float x = 20.0f;
         float y = 400.0f;
         float z = 40.0f;
 
