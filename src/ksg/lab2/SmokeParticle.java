@@ -6,6 +6,7 @@ import com.jogamp.opengl.GL2;
 import ksg.common.Colour;
 import ksg.common.Vector3;
 import ksg.common.GameObject;
+import ksg.lab2.Weather;
 
 /**
  @author MK, changes TM
@@ -87,6 +88,12 @@ public class SmokeParticle extends GameObject
         // TASK 2.2c: Add irregularity to the movement
         moveSpeed.x += (rand.nextFloat() - 0.5f)*0.1;
         moveSpeed.z += (rand.nextFloat() - 0.5f)*0.1;
+
+        // TASK 2.3: Add wind dependency
+        Vector3 wind = Weather.getWind();
+        moveSpeed.x += wind.x*0.01f;
+        moveSpeed.y += wind.y*0.01f;
+        moveSpeed.z += wind.z*0.01f;
         move(moveSpeed);
     }
     
