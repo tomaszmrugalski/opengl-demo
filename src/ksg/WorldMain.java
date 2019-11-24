@@ -262,11 +262,13 @@ public class WorldMain implements GLEventListener
         // Original light position: 80.0f, 100.0f, 120.0f
         // Ground cetern: 0.0f, 0.0f, -500.0f
 
+        // Nice lighting: r = 200, (80, 100, 220)
+        // Around the scene with broken normals: r=500, (0,0, -500)
         angle += 0.02; // rotation speed
-        float radius = 500.0f;
-        float center_x = 0.0f;
-        float center_y = -100.0f;
-        float center_z = -500.0f;
+        float radius = 200.0f;
+        float center_x = 80.0f;
+        float center_y = 100.0f;
+        float center_z = 220.0f;
 
         light.setPosition( center_x + (float)(Math.sin(angle)*radius), center_y, center_z + (float)(Math.cos(angle)*radius));
     }
