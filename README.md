@@ -1,5 +1,11 @@
 # opengl-demo
-A basic app showcasing OpenGL capabilities. Based on 'Techniki prezentacji danych przestrzennych' class from TUG
+A basic app showcasing OpenGL capabilities. Based on ['Techniki prezentacji danych przestrzennych'](https://enauczanie.pg.edu.pl/moodle/course/view.php?id=1327) class from [Gdańsk University Of Technology](https://eti.pg.edu.pl).
+
+# Installation
+
+1. Download start project from enauczanie
+2. Extract jogl-all.jar gluegen.jar and several others to lib/. Can also be downloaded from https://jogamp.org.
+3. Open the project in Apache Net
 
 # Keyboard shortcuts
 
