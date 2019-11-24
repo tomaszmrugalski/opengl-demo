@@ -251,31 +251,41 @@ public class WorldMain implements GLEventListener
     }
 
     // Ten kawalek kodu przesuwa swiatlo, wokol srodka "ziemi" (x,z)=(0,-500)
+    // Task LAB1.1: Rotating right.
     void moveLight() {
+
+        // This is a copernican model, the Sun doesn't move. ;)
         if (copernicus)
             return;
 
         // Oryginalne wspolrzedne
-        //light.setPosition(80.0f, 100.0f, 120.0f);
+        // Original light position: 80.0f, 100.0f, 120.0f
+        // Ground cetern: 0.0f, 0.0f, -500.0f
 
-        angle += 0.04;
+        angle += 0.02; // rotation speed
         float radius = 500.0f;
-        float center_x = 80.0f;
-        float center_y = 100.0f;
-        float center_z = 120.0f;
+        float center_x = 0.0f;
+        float center_y = -100.0f;
+        float center_z = -500.0f;
 
         light.setPosition( center_x + (float)(Math.sin(angle)*radius), center_y, center_z + (float)(Math.cos(angle)*radius));
     }
     
     float getRandom() {
         Random r = new Random();
-        return r.nextInt(1000)/500.0f;
+        float f = r.nextInt(1000)/500.0f;
+        return f;
     }
     
     void setRandomLightColor() {
-        light.setDiffuseColour(new Colour(getRandom(), getRandom(), getRandom(), getRandom()) );
-        light.setSpecularColour(new Colour(getRandom(), getRandom(), getRandom(), getRandom()) );
-        
+        float r = getRandom();
+        float g = getRandom();
+        float b = getRandom();
+        System.out.printf("Setting new color: RGB=(%4.2f, %4.2f, %4.2f)\n", r, g, b);
+
+        Colour c = new Colour(r, g, b, 1.0f);
+        light.setDiffuseColour(c);
+        light.setSpecularColour(c);
     }
     
     void resetLightColor() {
