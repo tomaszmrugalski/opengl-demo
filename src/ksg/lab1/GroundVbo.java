@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import ksg.common.Vector3;
+import java.util.Random;
 
 /**
  *
@@ -41,29 +42,81 @@ public class GroundVbo extends GameObject
     
     public void generateBuffers(GL2 gl)
     {
+        int cols = 128, rows = 128;
+
+        Random r = new Random();
+
+        System.out.printf("Image type is %d\n", displacementMap.getType());
+
         // Stworzenie bufora przechowującego informacje o położeniu wierzchołków (3 składowe: x,y,z).
-        float[] vertexArray = {-500, 0, -500,
-                                500, 0, -500,
-                               -500, 0,  500,
-                                500, 0,  500};
+        //float[] vertexArray = {-500, 0, -500,
+        //                        500, 0, -500,
+        //                       -500, 0,  500,
+        //                        500, 0,  500};
+
+        int imgWidth  = displacementMap.getWidth();
+        int imgHeight = displacementMap.getHeight();
+
+        int maxElev = 50;
+
+        float[] vertexArray = new float[cols*rows*3];
+        for (int y=0; y<rows; y++) {
+            for (int x=0; x<cols; x++) {
+                int offset = 3*(y*cols + x);
+
+                // x*imgWidth/cols will change between 0..imgWidth
+                int col = displacementMap.getRGB(x*imgWidth/cols, y*imgHeight/rows);
+                // col is returned in ffrrggbb syntax. The displacement is grayscale, so we simply use B (lower 8bits)
+                col = col & 0xff;
+
+                int height = col * maxElev / 255; // Elevation taken from bitmap
+                // int height = r.nextInt(10); // Random elevation
+                // int height = (int)(maxElev*Math.cos(Math.sqrt(0.01*(x*x + y*y)))); // Sine waves elevation
+
+                vertexArray[offset] = -500 + x*1000/128;
+                vertexArray[offset + 1] = height;
+                vertexArray[offset + 2] = -500 + y*1000/128;
+            }
+        }
+
+
         vertices = Buffers.newDirectFloatBuffer(vertexArray.length);
         vertices.put(vertexArray);
         vertices.flip();
-        
+
         // Stworzenie bufora przechowującego informacje o mapowaniu tekstury (2 składowe: u,v).
-        float[] texCoordArray = {0f, 0f,
-                                 1f, 0f,
-                                 1f, 1f,
-                                 0f, 1f};
+        //float[] texCoordArray = {0f, 0f,
+        //                         1f, 0f,
+        //                         1f, 1f,
+        //                         0f, 1f};
+        float[] texCoordArray = new float[cols*rows*2];
+        for (int y=0; y<rows; y++) {
+            for (int x=0; x<cols; x++) {
+                int offset = 2*(y*cols + x);
+                texCoordArray[offset]     = 1.0f*x/cols;
+                texCoordArray[offset + 1] = 1.0f*y/rows;
+            }
+        }
         texCoords = Buffers.newDirectFloatBuffer(texCoordArray.length);
         texCoords.put(texCoordArray);
         texCoords.flip();
 
         // Stworzenie bufora przechowującego normalne wierzchołków (3 składowe: x,y,z).
-        float[] normalArray = {0, 0, 1,
-                               0, 0, 1,
-                               0, 0, 1,
-                               0, 0, 1};
+//        float[] normalArray = {0, 0, 1,
+//                               0, 0, 1,
+//                               0, 0, 1,
+//                               0, 0, 1};
+        float[] normalArray = new float[3*rows*cols];
+        for (int y=0; y<rows; y++) {
+            for (int x=0; x<cols; x++) {
+                int offset = 3*(y*cols + x);
+
+                // TODO: Calculate normals properly
+                normalArray[offset]     = r.nextInt(100)/100.0f;
+                normalArray[offset + 1] = r.nextInt(100)/100.0f;
+                normalArray[offset + 2] = r.nextInt(100)/100.0f;
+            }
+        }
         normals = Buffers.newDirectFloatBuffer(normalArray.length);
         normals.put(normalArray);
         normals.flip();
@@ -74,7 +127,22 @@ public class GroundVbo extends GameObject
         //   | / |
         //   |/  |
         //   2---3
-        int[] indexArray = {0,2,1, 1,2,3};
+        //int[] indexArray = {0,2,1, 1,2,3};
+        int[] indexArray = new int[(cols-1)*(rows-1)*6];
+        int iter = 0;
+        for (int y=0; y < rows-1; y++) {
+            for (int x=0; x<cols-1; x++) {
+                int offset = y*cols + x;
+                indexArray[iter] = (short)(offset + 0);
+                indexArray[iter + 1] = (short)(offset + cols);
+                indexArray[iter + 2] = (short)(offset + 1);
+                indexArray[iter + 3] = (short)(offset + 1);
+                indexArray[iter + 4] = (short)(offset + cols);
+                indexArray[iter + 5] = (short)(offset + cols+1);
+                iter += 6;
+            }
+        }
+
         indices = Buffers.newDirectIntBuffer(indexArray.length);
         indices.put(indexArray);
         indices.flip();
