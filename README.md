@@ -18,3 +18,7 @@ LAB 2:
 * Z,X,C,V,B,N - change wind direction
 * 1 - double number of particles
 * 2 - halve number of particles
+
+LAB 3:
+
+* P - enable/disable post-processing (heat wave)
