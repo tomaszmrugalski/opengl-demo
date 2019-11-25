@@ -5,7 +5,7 @@ A basic app showcasing OpenGL capabilities. Based on ['Techniki prezentacji dany
 
 1. Download start project from enauczanie
 2. Extract jogl-all.jar gluegen.jar and several others to lib/. Can also be downloaded from https://jogamp.org.
-3. Open the project in Apache Net
+3. Open the project in Apache NetBeans
 
 # Keyboard shortcuts
 
