@@ -208,6 +208,7 @@ public class WorldMain implements GLEventListener {
         // Stworzenie obiektu reprezentującego światło i dodanie go do kolekcji obiektów.
         light = new Light(new TexturedQuad(0, 0, 0, textures.get(0)));
 
+        // TASK 3.1
         light.getMesh().createShaders(gl,
             "/ksg/lab3/shaders/QuadVertex.glsl",
             "/ksg/lab3/shaders/QuadFragment.glsl");
